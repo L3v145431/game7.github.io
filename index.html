@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validador de Descripción - WeSpark</title>
+  <style>
+    :root {
+      --yellow: #FCD307;
+      --orange: #FFBC00;
+      --black: #000000;
+      --gray: #E2E2E2;
+      --white: #FFFFFF;
+      --green: #2E7D32;
+      --red: #C62828;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: rgb(255, 255, 255);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      background-color: white;
+      padding: 20px;
+      width: 80%;
+      max-width: 500px;
+      box-sizing: border-box;
+      border: 2px solid rgb(201, 197, 197);
+    }
+
+    .logo {
+      margin: 20px 0;
+    }
+
+    .logo img {
+      width: 60%;
+      height: auto;
+    }
+
+    .custom-text {
+      font-weight: normal;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .text-box {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      width: 80%;
+      height: 150px;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100%;
+      border: none;
+      resize: none;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: #000000;
+      border-radius: 4%;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #e2e2e2;
+      color: #6b6b6b;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      position: relative;
+    }
+
+    button:enabled {
+      background-color: #fcd307;
+      color: black;
+    }
+
+    #output {
+      margin-top: 15px;
+      font-size: 16px;
+      text-align: center;
+      white-space: pre-wrap;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+      pointer-events: none;
+    }
+
+    #output.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .correcto {
+      background-color: #ffffff;
+      border: 1px solid #ffffff;
+      color: #000000;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .incorrecto {
+      background-color: #ffffff;
+      border: 1px solid #ffffff;
+      color: #000;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .invalido {
+      background-color: #ffffff;
+      border: 1px solid #ffffff;
+      color: #0e0d0d;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 0 8px rgb(14, 13, 13);
+    }
+
+    .loading {
+      background-color: #e2e2e2;
+      color: #FCD307;
+    }
+
+    .loading-dots {
+      display: inline-block;
+      margin-left: 5px;
+    }
+
+    .loading-dots span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin: 0 2px;
+      background-color: #FCD300;
+      border-radius: 50%;
+      animation: scaleAndColorChange 1.4s infinite ease-in-out;
+    }
+
+    .loading-dots span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .loading-dots span:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .loading-dots span:nth-child(3) {
+      animation-delay: 0.8s;
+    }
+
+    @keyframes scaleAndColorChange {
+      0% {
+        transform: scale(1);
+        background-color: #FCD300;
+      }
+      50% {
+        transform: scale(1.5);
+        background-color: #FFBC00;
+      }
+      100% {
+        transform: scale(1);
+        background-color: #FCD300;
+      }
+    }
+
+    .progress-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+      width: 100%;
+      height: 12px;
+      margin-bottom: 20px;
+      background-color: transparent;
+    }
+
+    .progress-segment {
+      flex: 1;
+      background-color: #ddd;
+      transition: background-color 0.3s ease;
+      height: 100%;
+    }
+
+    .progress-segment:first-child {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    .progress-segment:last-child {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+
+    .progress-segment.filled {
+      background: linear-gradient(to right, #FCD307, #FFBC00);
+    }
+
+    .progress-segment.flashing {
+      animation: flash 1s infinite;
+    }
+
+    @keyframes flash {
+      0%, 100% {
+        background-color: #ddd;
+      }
+      50% {
+        background-color: rgba(252, 211, 7, 0.7);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress-segment filled"></div>
+      <div class="progress-segment filled"></div>
+      <div class="progress-segment filled"></div>
+      <div class="progress-segment filled"></div>
+      <div class="progress-segment filled"></div>
+      <div class="progress-segment filled"></div>
+      <div class="progress-segment flashing"></div>
+    </div>
+    <p class="custom-text">Describe WeSpark in a single sentence. <br> [In any Language] </p>
+    <div class="logo">
+      <img src="https://static.wixstatic.com/media/9c422e_159f139392724b29921a8045ca694a93~mv2.png" alt="WeSpark Logo" />
+    </div>
+
+    <div class="text-box">
+      <form id="game-form" style="width:100%; height:100%;">
+        <textarea id="input" placeholder="Escribe aquí tu descripción de WeSpark..." required></textarea>
+      </form>
+    </div>
+
+    <button type="submit" form="game-form" id="submit-button" disabled>
+      Submit Answers
+    </button>
+    <div id="output"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    const form = document.getElementById("game-form");
+    const outputDiv = document.getElementById("output");
+    const submitButton = document.getElementById("submit-button");
+    const inputTextArea = document.getElementById("input");
+
+    inputTextArea.addEventListener("input", () => {
+      submitButton.disabled = inputTextArea.value.trim() === "";
+    });
+
+    function updateProgressBar() {
+      const segments = document.querySelectorAll(".progress-segment");
+      segments.forEach((segment, index) => {
+        segment.classList.remove('flashing');
+        if (index < correctAnswers) {
+          segment.classList.add('filled');
+        }
+        if (index === correctAnswers) {
+          segment.classList.add('flashing');
+          segment.classList.remove('filled');
+        }
+      });
+    }
+
+    let correctAnswers = 6; // Inicializamos con seis respuestas correctas
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const inputText = inputTextArea.value;
+
+      submitButton.disabled = true;
+      submitButton.innerHTML = "Analyzing <span class='loading-dots'><span></span><span></span><span></span></span>";
+
+      try {
+        const response = await fetch(
+          "https://wespark.app.n8n.cloud/webhook/0cb7a97d-ab70-4b8a-83b2-4cf8f14421ca",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chatinput: inputText }),
+          }
+        );
+
+        const result = await response.json();
+
+        outputDiv.className = "";
+        outputDiv.innerHTML = "";
+
+        let rawOutput = `<strong>🤖 Feedback from Tom Spark:</strong>\n${result.feedback}`;
+
+        if (result.passed === true) {
+          rawOutput += `\n✅ Tom approves!`;
+          outputDiv.classList.add("correcto", "visible");
+
+          const duration = 5 * 1000;
+          const animationEnd = Date.now() + duration;
+          const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+          function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+          }
+
+          const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+              return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti(Object.assign({}, defaults, { particleCount, angle: randomInRange(55, 125), origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+            confetti(Object.assign({}, defaults, { particleCount, angle: randomInRange(55, 125), origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+          }, 250);
+
+          let countdown = 10;
+          submitButton.innerHTML = `Continue [${countdown}]`;
+          submitButton.disabled = false;
+
+          const countdownInterval = setInterval(() => {
+            countdown--;
+            submitButton.innerHTML = `Continue [${countdown}]`;
+
+            if (countdown <= 0) {
+              clearInterval(countdownInterval);
+              window.location.href = "linkedin.html";
+            }
+          }, 1000);
+
+          submitButton.onclick = function() {
+            clearInterval(countdownInterval);
+            window.location.href = "linkedin.html";
+          };
+
+          correctAnswers++;
+          updateProgressBar();
+        } else if (result.passed === false) {
+          outputDiv.classList.add("incorrecto", "visible");
+          submitButton.innerHTML = "Try Again";
+          submitButton.disabled = false;
+        } else {
+          outputDiv.classList.add("invalido", "visible");
+        }
+
+        outputDiv.innerHTML = rawOutput;
+
+        setTimeout(() => {
+          outputDiv.className = "";
+          outputDiv.innerHTML = "";
+        }, 100000000);
+      } catch (error) {
+        outputDiv.className = "invalido visible";
+        outputDiv.innerText = `❌ Error:\n${error.message}`;
+        setTimeout(() => {
+          outputDiv.className = "";
+          outputDiv.innerText = "";
+        }, 9000000);
+      } finally {
+        submitButton.classList.remove("loading");
+      }
+    });
+  </script>
+</body>
+</html>
