@@ -19,15 +19,17 @@
       --orange: #FFBC00;
       --black: #000000;
       --gray: #E2E2E2;
-      --white: #E2E2E2;
+      --white: #FFFFFF;
       --green: #2E7D32;
       --red: #C62828;
     }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
       font-family: Helvetica, sans-serif;
       background-color: var(--white);
@@ -38,12 +40,14 @@
       margin: 0;
       overflow: auto;
     }
+
     .game-wrapper {
       width: 95vmin;
       height: 95vmin;
       max-width: 100vmin;
       max-height: 100vmin;
     }
+
     .container {
       text-align: center;
       background-color: white;
@@ -54,12 +58,13 @@
       border: 0.2vmin solid rgb(201, 197, 197);
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: flex-start; /* Cambiado a flex-start para alinear elementos en la parte superior */
       border-radius: 4vmin;
       aspect-ratio: 1 / 1;
     }
+
     .progress-bar {
-      margin-top: 2vmin;
+      margin-top: 2vmin; /* Ajusta el margen superior de la barra de progreso */
       display: flex;
       justify-content: space-between;
       gap: 0.4vmin;
@@ -67,18 +72,22 @@
       height: 1.2vmin;
       background-color: transparent;
     }
+
     .custom-text {
-      margin-top: 2vmin;
+      margin-top: 2vmin; /* Ajusta el margen superior del texto */
       font-weight: normal;
       font-size: 2.5vmin;
     }
+
     .logo {
       margin: 2vmin 0;
     }
+
     .logo img {
       width: 40%;
       height: auto;
     }
+
     .text-box {
       border: 0.1vmin solid #ffffff;
       border-radius: 0.5vmin;
@@ -90,6 +99,7 @@
       justify-content: center;
       align-items: center;
     }
+
     textarea {
       width: 100%;
       height: 100%;
@@ -101,6 +111,7 @@
       border-radius: 1.2vmin;
       font-size: 2vmin;
     }
+
     button {
       margin-top: 1vmin;
       padding: 1.5vmin 3vmin;
@@ -115,10 +126,12 @@
       font-size: 2vmin;
       position: relative;
     }
+
     button:enabled {
       background-color: var(--global-button-color-main);
       color: var(--global-button-text-color);
     }
+
     #output {
       margin-top: 1.5vmin;
       font-size: 2vmin;
@@ -128,10 +141,12 @@
       transition: opacity 0.6s ease-in-out;
       pointer-events: none;
     }
+
     #output.visible {
       opacity: 1;
       pointer-events: auto;
     }
+
     .correcto {
       background-color: var(--white);
       border: 0.1vmin solid var(--white);
@@ -139,6 +154,7 @@
       border-radius: 0.8vmin;
       padding: 1vmin;
     }
+
     .incorrecto {
       background-color: var(--white);
       border: 0.1vmin solid var(--white);
@@ -146,6 +162,7 @@
       border-radius: 0.8vmin;
       padding: 1vmin;
     }
+
     .invalido {
       background-color: var(--white);
       border: 0.1vmin solid var(--white);
@@ -154,10 +171,12 @@
       padding: 1vmin;
       box-shadow: 0 0 0.8vmin rgba(0, 0, 0, 0.1);
     }
+
     .loading-dots {
       display: inline-block;
       margin-left: 0.5vmin;
     }
+
     .loading-dots span {
       display: inline-block;
       width: 0.8vmin;
@@ -167,15 +186,19 @@
       border-radius: 50%;
       animation: scaleAndColorChange 1.4s infinite ease-in-out;
     }
+
     .loading-dots span:nth-child(1) {
       animation-delay: 0s;
     }
+
     .loading-dots span:nth-child(2) {
       animation-delay: 0.4s;
     }
+
     .loading-dots span:nth-child(3) {
       animation-delay: 0.8s;
     }
+
     @keyframes scaleAndColorChange {
       0% {
         transform: scale(1);
@@ -190,26 +213,32 @@
         background-color: var(--yellow);
       }
     }
+
     .progress-segment {
       flex: 1;
       background-color: #ddd;
       transition: background-color 0.3s ease;
       height: 100%;
     }
+
     .progress-segment:first-child {
       border-top-left-radius: 0.6vmin;
       border-bottom-left-radius: 0.6vmin;
     }
+
     .progress-segment:last-child {
       border-top-right-radius: 0.6vmin;
       border-bottom-right-radius: 0.6vmin;
     }
+
     .progress-segment.filled {
       background: linear-gradient(to right, var(--global-button-color-main), var(--global-button-color-secondary));
     }
+
     .progress-segment.flashing {
       animation: flash 1s infinite;
     }
+
     @keyframes flash {
       0%, 100% {
         background-color: #ddd;
@@ -218,6 +247,7 @@
         background-color: rgba(252, 211, 7, 0.7);
       }
     }
+
     .overlay {
       position: fixed;
       top: 0;
@@ -230,15 +260,17 @@
       align-items: center;
       z-index: 1000;
     }
+
     .overlay-content {
       background-color: white;
       padding: 2.5vmin;
       border-radius: 1vmin;
       position: relative;
-      max-width: 100%;
-      max-height: 80%;
+      max-width: 45%;
+      max-height: 100%;
       overflow: auto;
     }
+
     .close-btn {
       position: absolute;
       top: 1vmin;
@@ -246,40 +278,50 @@
       font-size: 2.5vmin;
       cursor: pointer;
     }
+
     @media (max-width: 768px) {
       .container {
         padding: 1.5vmin;
       }
+
       .custom-text {
         font-size: 2vmin;
       }
+
       textarea {
         font-size: 1.8vmin;
       }
+
       button {
         width: 20vmin;
         font-size: 1.8vmin;
         padding: 1.2vmin 2.4vmin;
       }
+
       #output {
         font-size: 1.8vmin;
       }
     }
+
     @media (max-width: 480px) {
       .container {
         padding: 1vmin;
       }
+
       .custom-text {
         font-size: 1.5vmin;
       }
+
       textarea {
         font-size: 1.2vmin;
       }
+
       button {
         width: 15vmin;
         font-size: 1.2vmin;
         padding: 1vmin 2vmin;
       }
+
       #output {
         font-size: 1.2vmin;
       }
@@ -323,6 +365,7 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
+    // Lógica del juego
     const form = document.getElementById("game-form");
     const outputDiv = document.getElementById("output");
     const submitButton = document.getElementById("submit-button");
@@ -437,7 +480,7 @@
 
     function redirectToNextGame() {
       if (window.parent && typeof window.parent.loadNextGame === 'function') {
-        window.parent.loadNextGame('https://l3v145431.github.io/Link.github.io/');
+        window.parent.loadNextGame('ttps://l3v145431.github.io/Link.github.io/');
       }
     }
   </script>
