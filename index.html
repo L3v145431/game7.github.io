@@ -6,222 +6,210 @@
   <title>Validador de Descripción - WeSpark</title>
   <style>
     :root {
+      --global-title-color: #FFFFFF;
+      --global-background-color: #000000;
+      --global-button-text-color: #000000;
+      --global-button-color-main: #FCD307;
+      --global-button-color-secondary: #FFD700;
+      --global-color-frames: #E2E2E2;
+      --global-color-soft: #F4A460;
+      --global-color-pass: #1bb40d;
+      --global-color-fail: #ff0000;
       --yellow: #FCD307;
       --orange: #FFBC00;
       --black: #000000;
       --gray: #E2E2E2;
-      --white: #FFFFFF;
+      --white: #E2E2E2;
       --green: #2E7D32;
       --red: #C62828;
     }
-
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background-color: rgb(255, 255, 255);
+      font-family: Helvetica, sans-serif;
+      background-color: var(--white);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: auto;
     }
-
+    .game-wrapper {
+      width: 95vmin;
+      height: 95vmin;
+      max-width: 100vmin;
+      max-height: 100vmin;
+    }
     .container {
       text-align: center;
       background-color: white;
-      padding: 20px;
-      width: 90vmin;
-      height: 90vmin;
-      max-width: 600px;
-      max-height: 600px;
+      padding: 2.5vmin;
+      width: 100%;
+      height: 100%;
       box-sizing: border-box;
-      border: 2px solid rgb(201, 197, 197);
+      border: 0.2vmin solid rgb(201, 197, 197);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      border-radius: 4%;
+      justify-content: flex-start;
+      border-radius: 4vmin;
+      aspect-ratio: 1 / 1;
     }
-
+    .progress-bar {
+      margin-top: 2vmin;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.4vmin;
+      width: 100%;
+      height: 1.2vmin;
+      background-color: transparent;
+    }
+    .custom-text {
+      margin-top: 2vmin;
+      font-weight: normal;
+      font-size: 2.5vmin;
+    }
     .logo {
-      margin: 20px 0;
+      margin: 2vmin 0;
     }
-
     .logo img {
       width: 40%;
       height: auto;
     }
-
-    .custom-text {
-      font-weight: normal;
-      font-size: 18px;
-      margin: 0;
-    }
-
     .text-box {
-      border: 1px solid #ffffff;
-      border-radius: 5px;
-      padding: 20px;
+      border: 0.1vmin solid #ffffff;
+      border-radius: 0.5vmin;
+      padding: 2vmin;
       width: 80%;
-      height: 100px;
-      margin: 20px auto;
+      height: 15vmin;
+      margin: 2vmin auto;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-
     textarea {
       width: 100%;
       height: 100%;
-      border: 1px solid black;
+      border: 0.1vmin solid black;
       resize: none;
       text-align: center;
       font-family: Arial, sans-serif;
       color: #000000;
-      border-radius: 1.2%;
-      font-size: 16px;
+      border-radius: 1.2vmin;
+      font-size: 2vmin;
     }
-
     button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #e2e2e2;
-      height: 40px;
-      width: 200px;
-      color: #6b6b6b;
+      margin-top: 1vmin;
+      padding: 1.5vmin 3vmin;
+      background-color: var(--global-color-frames);
+      height: 5vmin;
+      width: 25vmin;
+      color: var(--global-button-text-color);
       border: none;
-      border-radius: 50px;
+      border-radius: 5vmin;
       font-weight: bold;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 2vmin;
       position: relative;
     }
-
     button:enabled {
-      background-color: #fcd307;
-      color: black;
+      background-color: var(--global-button-color-main);
+      color: var(--global-button-text-color);
     }
-
     #output {
-      margin-top: 15px;
-      font-size: 16px;
+      margin-top: 1.5vmin;
+      font-size: 2vmin;
       text-align: center;
       white-space: pre-wrap;
       opacity: 0;
       transition: opacity 0.6s ease-in-out;
       pointer-events: none;
     }
-
     #output.visible {
       opacity: 1;
       pointer-events: auto;
     }
-
     .correcto {
-      background-color: #ffffff;
-      border: 1px solid #ffffff;
-      color: #000000;
-      border-radius: 8px;
-      padding: 10px;
+      background-color: var(--white);
+      border: 0.1vmin solid var(--white);
+      color: var(--global-background-color);
+      border-radius: 0.8vmin;
+      padding: 1vmin;
     }
-
     .incorrecto {
-      background-color: #ffffff;
-      border: 1px solid #ffffff;
-      color: #000;
-      border-radius: 8px;
-      padding: 10px;
+      background-color: var(--white);
+      border: 0.1vmin solid var(--white);
+      color: var(--global-background-color);
+      border-radius: 0.8vmin;
+      padding: 1vmin;
     }
-
     .invalido {
-      background-color: #ffffff;
-      border: 1px solid #ffffff;
-      color: #0e0d0d;
-      border-radius: 8px;
-      padding: 10px;
-      box-shadow: 0 0 8px rgb(14, 13, 13);
+      background-color: var(--white);
+      border: 0.1vmin solid var(--white);
+      color: var(--black);
+      border-radius: 0.8vmin;
+      padding: 1vmin;
+      box-shadow: 0 0 0.8vmin rgba(0, 0, 0, 0.1);
     }
-
-    .loading {
-      background-color: #e2e2e2;
-      color: #FCD307;
-    }
-
     .loading-dots {
       display: inline-block;
-      margin-left: 5px;
+      margin-left: 0.5vmin;
     }
-
     .loading-dots span {
       display: inline-block;
-      width: 8px;
-      height: 8px;
-      margin: 0 2px;
-      background-color: #FCD300;
+      width: 0.8vmin;
+      height: 0.8vmin;
+      margin: 0 0.2vmin;
+      background-color: var(--yellow);
       border-radius: 50%;
       animation: scaleAndColorChange 1.4s infinite ease-in-out;
     }
-
     .loading-dots span:nth-child(1) {
       animation-delay: 0s;
     }
-
     .loading-dots span:nth-child(2) {
       animation-delay: 0.4s;
     }
-
     .loading-dots span:nth-child(3) {
       animation-delay: 0.8s;
     }
-
     @keyframes scaleAndColorChange {
       0% {
         transform: scale(1);
-        background-color: #FCD300;
+        background-color: var(--yellow);
       }
       50% {
         transform: scale(1.5);
-        background-color: #FFBC00;
+        background-color: var(--orange);
       }
       100% {
         transform: scale(1);
-        background-color: #FCD300;
+        background-color: var(--yellow);
       }
     }
-
-    .progress-bar {
-      display: flex;
-      justify-content: space-between;
-      gap: 4px;
-      width: 100%;
-      height: 12px;
-      margin-bottom: 20px;
-      background-color: transparent;
-    }
-
     .progress-segment {
       flex: 1;
       background-color: #ddd;
       transition: background-color 0.3s ease;
       height: 100%;
     }
-
     .progress-segment:first-child {
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
+      border-top-left-radius: 0.6vmin;
+      border-bottom-left-radius: 0.6vmin;
     }
-
     .progress-segment:last-child {
-      border-top-right-radius: 6px;
-      border-bottom-right-radius: 6px;
+      border-top-right-radius: 0.6vmin;
+      border-bottom-right-radius: 0.6vmin;
     }
-
     .progress-segment.filled {
-      background: linear-gradient(to right, #FCD307, #FFBC00);
+      background: linear-gradient(to right, var(--global-button-color-main), var(--global-button-color-secondary));
     }
-
     .progress-segment.flashing {
       animation: flash 1s infinite;
     }
-
     @keyframes flash {
       0%, 100% {
         background-color: #ddd;
@@ -230,7 +218,6 @@
         background-color: rgba(252, 211, 7, 0.7);
       }
     }
-
     .overlay {
       position: fixed;
       top: 0;
@@ -243,110 +230,97 @@
       align-items: center;
       z-index: 1000;
     }
-
     .overlay-content {
       background-color: white;
-      padding: 20px;
-      border-radius: 10px;
+      padding: 2.5vmin;
+      border-radius: 1vmin;
       position: relative;
-      max-width: 40%;
+      max-width: 100%;
       max-height: 80%;
       overflow: auto;
     }
-
     .close-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 20px;
+      top: 1vmin;
+      right: 1vmin;
+      font-size: 2.5vmin;
       cursor: pointer;
     }
-
-    /* Media Queries para responsividad */
     @media (max-width: 768px) {
       .container {
-        width: 95%;
-        height: auto;
+        padding: 1.5vmin;
       }
-
       .custom-text {
-        font-size: 16px;
+        font-size: 2vmin;
       }
-
       textarea {
-        font-size: 14px;
+        font-size: 1.8vmin;
       }
-
       button {
-        width: 180px;
-        font-size: 14px;
+        width: 20vmin;
+        font-size: 1.8vmin;
+        padding: 1.2vmin 2.4vmin;
       }
-
       #output {
-        font-size: 14px;
+        font-size: 1.8vmin;
       }
     }
-
     @media (max-width: 480px) {
       .container {
-        width: 98%;
-        height: auto;
+        padding: 1vmin;
       }
-
       .custom-text {
-        font-size: 14px;
+        font-size: 1.5vmin;
       }
-
       textarea {
-        font-size: 12px;
+        font-size: 1.2vmin;
       }
-
       button {
-        width: 150px;
-        font-size: 12px;
+        width: 15vmin;
+        font-size: 1.2vmin;
+        padding: 1vmin 2vmin;
       }
-
       #output {
-        font-size: 12px;
+        font-size: 1.2vmin;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="progress-bar" id="progress-bar">
-      <div class="progress-segment filled"></div>
-      <div class="progress-segment filled"></div>
-      <div class="progress-segment filled"></div>
-      <div class="progress-segment filled"></div>
-      <div class="progress-segment filled"></div>
-      <div class="progress-segment filled"></div>
-      <div class="progress-segment flashing"></div>
+  <div class="game-wrapper">
+    <div class="container">
+      <div class="progress-bar" id="progress-bar">
+        <div class="progress-segment filled"></div>
+        <div class="progress-segment filled"></div>
+        <div class="progress-segment filled"></div>
+        <div class="progress-segment filled"></div>
+        <div class="progress-segment filled"></div>
+        <div class="progress-segment filled"></div>
+        <div class="progress-segment flashing"></div>
+      </div>
+      <p class="custom-text">Describe WeSpark <br> in a single sentence. <br> [In any Language] </p>
+      <div class="logo">
+        <img src="https://static.wixstatic.com/media/9c422e_159f139392724b29921a8045ca694a93~mv2.png" alt="WeSpark Logo" />
+      </div>
+      <div class="text-box">
+        <form id="game-form" style="width:100%; height:100%;">
+          <textarea id="input" placeholder="Write your answer here..." required></textarea>
+        </form>
+      </div>
+      <center>
+        <button type="submit" form="game-form" id="submit-button" disabled>
+          Submit Answers
+        </button>
+      </center>
+      <div id="output"></div>
     </div>
-    <p class="custom-text">Describe WeSpark <br> in a single sentence. <br> [In any Language] </p>
-    <div class="logo">
-      <img src="https://static.wixstatic.com/media/9c422e_159f139392724b29921a8045ca694a93~mv2.png" alt="WeSpark Logo" />
-    </div>
-    <div class="text-box">
-      <form id="game-form" style="width:100%; height:100%;">
-        <textarea id="input" placeholder="Write your description of WeSpark here..." required></textarea>
-      </form>
-    </div>
-    <center>
-      <button type="submit" form="game-form" id="submit-button" disabled>
-        Submit Answers
-      </button>
-    </center>
-    <div id="output"></div>
   </div>
-
   <div id="response-overlay" class="overlay" style="display: none;">
     <div class="overlay-content">
       <span class="close-btn" id="close-btn">X</span>
       <div id="response-content"></div>
     </div>
   </div>
-
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
     const form = document.getElementById("game-form");
@@ -380,7 +354,6 @@
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const inputText = inputTextArea.value;
-
       submitButton.disabled = true;
       submitButton.innerHTML = "Analyzing <span class='loading-dots'><span></span><span></span><span></span></span>";
 
@@ -395,13 +368,12 @@
         );
 
         const result = await response.json();
-        let rawOutput = `<strong>🤖 Feedback from Tom Spark:</strong>\n${result.feedback}`;
+        let rawOutput = `<center><strong>🤖 Feedback from Tom Spark:</strong><br>\n ${result.feedback}</center>`;
 
         if (result.passed === true) {
-          rawOutput += `\n✅ Tom approves!`;
+          rawOutput += ``;
           responseContent.innerHTML = rawOutput;
           responseOverlay.style.display = "flex";
-
           const duration = 5 * 1000;
           const animationEnd = Date.now() + duration;
           const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -412,11 +384,9 @@
 
           const interval = setInterval(function() {
             const timeLeft = animationEnd - Date.now();
-
             if (timeLeft <= 0) {
               return clearInterval(interval);
             }
-
             const particleCount = 50 * (timeLeft / duration);
             confetti(Object.assign({}, defaults, { particleCount, angle: randomInRange(55, 125), origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
             confetti(Object.assign({}, defaults, { particleCount, angle: randomInRange(55, 125), origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
@@ -432,23 +402,21 @@
               submitButton.innerHTML = `Continue [${countdown}]`;
               if (countdown <= 0) {
                 clearInterval(countdownInterval);
-                window.location.href = "https://l3v145431.github.io/Link.github.io/";
+                redirectToNextGame();
               }
             }, 1000);
 
             submitButton.onclick = function() {
               clearInterval(countdownInterval);
-              window.location.href = "https://l3v145431.github.io/Link.github.io/";
+              redirectToNextGame();
             };
           };
-
           correctAnswers++;
           updateProgressBar();
         } else if (result.passed === false) {
-          rawOutput += `\n❌ Tom does not approve.`;
+          rawOutput += ``;
           responseContent.innerHTML = rawOutput;
           responseOverlay.style.display = "flex";
-
           closeBtn.onclick = function() {
             responseOverlay.style.display = "none";
             submitButton.innerHTML = "Try Again";
@@ -466,6 +434,12 @@
         submitButton.classList.remove("loading");
       }
     });
+
+    function redirectToNextGame() {
+      if (window.parent && typeof window.parent.loadNextGame === 'function') {
+        window.parent.loadNextGame('https://l3v145431.github.io/Link.github.io/');
+      }
+    }
   </script>
 </body>
 </html>
