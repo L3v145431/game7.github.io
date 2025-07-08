@@ -19,7 +19,7 @@
       --orange: #FFBC00;
       --black: #000000;
       --gray: #E2E2E2;
-      --white: #FFFFFF;
+      --white: #E2E2E2;
       --green: #2E7D32;
       --red: #C62828;
     }
@@ -267,7 +267,7 @@
       border-radius: 1vmin;
       position: relative;
       max-width: 45%;
-      max-height: 100%;
+      max-height: 80%;
       overflow: auto;
     }
 
@@ -365,7 +365,6 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    // Lógica del juego
     const form = document.getElementById("game-form");
     const outputDiv = document.getElementById("output");
     const submitButton = document.getElementById("submit-button");
@@ -445,15 +444,16 @@
               submitButton.innerHTML = `Continue [${countdown}]`;
               if (countdown <= 0) {
                 clearInterval(countdownInterval);
-                redirectToNextGame();
+                window.location.href = "linkedin.html";
               }
             }, 1000);
 
             submitButton.onclick = function() {
               clearInterval(countdownInterval);
-              redirectToNextGame();
+              window.location.href = "linkedin.html";
             };
           };
+
           correctAnswers++;
           updateProgressBar();
         } else if (result.passed === false) {
@@ -477,12 +477,6 @@
         submitButton.classList.remove("loading");
       }
     });
-
-    function redirectToNextGame() {
-      if (window.parent && typeof window.parent.loadNextGame === 'function') {
-        window.parent.loadNextGame('https://l3v145431.github.io/Link.github.io/');
-      }
-    }
   </script>
 </body>
 </html>
