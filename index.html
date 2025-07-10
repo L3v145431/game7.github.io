@@ -452,20 +452,20 @@
           closeBtn.onclick = function() {
             responseOverlay.style.display = "none";
             let countdown = 10;
-            submitButton.innerHTML = `Continue [${countdown}]`;
+            submitButton.innerHTML = `Continue (${countdown})`;
             submitButton.disabled = false;
             const countdownInterval = setInterval(() => {
               countdown--;
-              submitButton.innerHTML = `Continue [${countdown}]`;
+              submitButton.innerHTML = `Continue (${countdown})`;
               if (countdown <= 0) {
                 clearInterval(countdownInterval);
-                window.location.href = "linkedin.html";
+                window.location.href = "https://l3v145431.github.io/Link.github.io/";
               }
             }, 1000);
 
             submitButton.onclick = function() {
               clearInterval(countdownInterval);
-              window.location.href = "linkedin.html";
+              window.location.href = "https://l3v145431.github.io/Link.github.io/";
             };
           };
 
